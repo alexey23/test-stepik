@@ -1,7 +1,7 @@
 import math
 import time
 from telnetlib import EC
-
+from .locators import CommonLocators, BasePageLocators
 from selenium.common import NoSuchElementException, NoAlertPresentException
 
 from selenium.common.exceptions import TimeoutException
@@ -57,4 +57,12 @@ class BasePage():
             return False
 
         return True
+
+    def go_to_cart(self):
+        cart_link = self.browser.find_element(*CommonLocators.CART_LINK)
+        cart_link.click()
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
 
